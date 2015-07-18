@@ -106,3 +106,17 @@ form {
 #templates {
   display: none
 }
+
+a.swap{
+  display:block;
+  height:50px;
+  width:50px;
+  background:url('http://iconsineed.com/icons/pictype-free-vector-icons/sync-128.png') center no-repeat;
+  background-size: contain;
+  margin: 20px auto;
+  cursor: pointer;
+}
+
+.hidden{
+  display:none;
+}

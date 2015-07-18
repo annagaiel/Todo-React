@@ -8,9 +8,15 @@ var findItemById = function(id) {
   return items.filter(function(item) {
     return item.id === id
   })[0]
-},
+}
 
 ListStore = {
+
+  listName: 'annagaiel',
+
+  urlRoot: function(listName){
+    return "http://listalous.herokuapp.com/lists/" + this.listName;
+  },
 
   getItems: function() {
     return items
@@ -19,7 +25,7 @@ ListStore = {
   loadItems: function(listName) {
     var loadRequest = $.ajax({
       type: 'GET',
-      url: "https://listalous.herokuapp.com/lists/"+listName+"/"
+      url: this.urlRoot()
     })
     loadRequest.done(function(dataFromServer) {
       items = dataFromServer.items
@@ -29,7 +35,7 @@ ListStore = {
   addItem: function(itemDescription) {
     var creationRequest = $.ajax({
       type: 'POST',
-      url: "http://listalous.herokuapp.com/lists/annagaiel/items",
+      url: this.urlRoot() + "/items",
       data: { description: itemDescription, completed: false }
     })
     creationRequest.done(function(itemDataFromServer) {
@@ -43,7 +49,7 @@ ListStore = {
 
     var updateRequest = $.ajax({
       type: 'PUT',
-      url: "https://listalous.herokuapp.com/lists/annagaiel/items/" + itemId,
+      url: this.urlRoot() + "/items/" + itemId,
       data: { completed: !currentCompletedValue }
     })
     updateRequest.done(function(itemData) {
@@ -56,7 +62,7 @@ ListStore = {
 
     var deleteRequest = $.ajax({
       type: 'DELETE',
-      url: "http://listalous.herokuapp.com/lists/annagaiel/items/"+itemId,
+      url: this.urlRoot() + "/items/" + itemId,
     })
     deleteRequest.done(function(deleteItemData){
       var indexOfItem =items.indexOf(item);
